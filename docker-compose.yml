@@ -1,0 +1,24 @@
+services:
+  app:
+    build:
+      context: .
+    image: cbs-server
+    container_name: cbs-server
+    ports:
+      - "9090:9090"
+    depends_on:
+      - cba-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-cba:5432/cba
+      - SPRING_DATASOURCE_USERNAME=cba
+      - SPRING_DATASOURCE_PASSWORD=cba
+
+  cba-db:
+    image: postgres:16.1
+    container_name: postgres-cba
+    ports:
+      - "6541:5432"
+    environment:
+      - POSTGRES_PASSWORD=cba
+      - POSTGRES_USER=cba
+      - POSTGRES_DB=cba
